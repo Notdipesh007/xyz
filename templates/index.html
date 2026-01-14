@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduPrep Portal | Your Gateway to IIT JEE & CDS Success</title>
-    <meta name="description" content="In-depth study guides, mathematics shortcuts, and strategic advice for competitive exams like IIT JEE, CDS, and SSC.">
+    <title>EduPrep Portal | IIT JEE, CDS, SSC & CAPF</title>
+    <meta name="description" content="Study guides, notes, and strategies for IIT JEE, CDS, SSC CPO, and CAPF exams.">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     
@@ -17,6 +17,7 @@
         .footer { background: #2c3e50; color: white; padding: 60px 0; margin-top: 50px; }
         .educational-text { color: #444; margin-bottom: 40px; }
         .section-header { border-left: 5px solid #3498db; padding-left: 15px; margin-bottom: 25px; font-weight: bold; }
+        .exam-img { width: 100%; height: 200px; object-fit: cover; border-radius: 5px 5px 0 0; }
     </style>
 </head>
 <body>
@@ -30,10 +31,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/blog/jee/math-shortcuts">IIT JEE</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/blog/cds/preparation-strategy">CDS Preparation</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/contact">Contact Us</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/privacy-policy">Privacy Policy</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#jee">IIT JEE</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#defense">CDS & CAPF</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#ssc">SSC CPO</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
                 </ul>
             </div>
         </div>
@@ -41,9 +42,9 @@
 
     <header class="hero-section">
         <div class="container">
-            <h1 class="display-3 fw-bold">Master Competitive Exams in 2026</h1>
-            <p class="lead mb-4">Deep-dive strategies, comprehensive notes, and expert guidance for IIT JEE, CDS, and SSC aspirants.</p>
-            <a href="#content" class="btn btn-primary btn-lg px-5">Start Learning Now</a>
+            <h1 class="display-3 fw-bold">Master Your Career in 2026</h1>
+            <p class="lead mb-4">Complete resources for Engineering (JEE) and Defence (CDS, CAPF, SSC) Aspirants.</p>
+            <a href="#content" class="btn btn-primary btn-lg px-5">Start Learning</a>
         </div>
     </header>
 
@@ -51,39 +52,60 @@
         <div class="row">
             <div class="col-md-8">
                 
-                <div class="educational-text">
-                    <h2 class="section-header">Why Strategic Preparation Matters for IIT JEE</h2>
-                    <p>The Joint Entrance Examination (JEE) is one of the most challenging engineering entrance exams globally. To succeed, students must move beyond rote memorization. Success in IIT JEE 2026 requires a profound understanding of core concepts in Physics, Chemistry, and Mathematics. Our platform provides specialized shortcuts for complex calculus and detailed breakdowns of organic reaction mechanisms to help you stay ahead of the curve.</p>
+                <div id="jee" class="educational-text">
+                    <h2 class="section-header">IIT JEE: Engineering Excellence</h2>
+                    <p>Success in IIT JEE 2026 requires a profound understanding of core concepts. We provide specialized shortcuts for complex calculus and detailed breakdowns of organic reaction mechanisms.</p>
                 </div>
 
-                <h3 class="mb-4 fw-bold">Featured Expert Articles</h3>
+                <div class="card mb-4">
+                    <img src="https://via.placeholder.com/800x400?text=Mathematics+Shortcuts" class="exam-img" alt="Math Shortcuts">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Top 10 Mathematics Shortcuts</h5>
+                        <p class="card-text text-muted">Solve complex integration and coordinate geometry problems in under 60 seconds.</p>
+                        <a href="#" class="btn btn-outline-primary btn-sm">View Guide</a>
+                    </div>
+                </div>
+
+                <div id="defense" class="educational-text mt-5">
+                    <h2 class="section-header">Defence Exams: CDS & CAPF (AC)</h2>
+                    <p><strong>Combined Defence Services (CDS):</strong> Focus on English, General Knowledge, and Elementary Math. Accuracy is key.</p>
+                    <p><strong>CAPF (Assistant Commandant):</strong> This exam requires a blend of written ability (Essay/Précis) and objective intelligence. Physical efficiency is equally important.</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                             <img src="https://via.placeholder.com/400x200?text=CDS+Strategy" class="exam-img" alt="CDS">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">CDS 2026 Strategy</h5>
+                                <p class="card-text small">Deep dive into History, Geography, and Current Affairs weightage for the GS paper.</p>
+                                <a href="#" class="btn btn-primary btn-sm w-100">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                             <img src="https://via.placeholder.com/400x200?text=CAPF+Paper+2" class="exam-img" alt="CAPF">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">CAPF Paper 2 Tips</h5>
+                                <p class="card-text small">How to write high-scoring essays and arguments on internal security topics.</p>
+                                <a href="#" class="btn btn-primary btn-sm w-100">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="ssc" class="educational-text mt-5">
+                    <h2 class="section-header">SSC CPO: The Gateway to Paramilitary</h2>
+                    <p>The Staff Selection Commission Central Police Organization (SSC CPO) exam focuses heavily on <strong>English Comprehension</strong> and <strong>Quantitative Aptitude</strong>. Unlike CDS, the math here is arithmetic-heavy. We offer specific speed-drills for SSC aspirants.</p>
+                </div>
                 
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold">Top 10 Mathematics Shortcuts for IIT JEE 2026</h5>
-                        <p class="card-text text-muted">Time management is the key to clearing JEE. Learn how to solve complex integration and coordinate geometry problems in under 60 seconds...</p>
-                        <a href="/blog/jee/math-shortcuts" class="btn btn-outline-primary btn-sm">Read More</a>
-                    </div>
-                </div>
-
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold">CDS Exam 2026: Complete Strategy for GS Paper</h5>
-                        <p class="card-text text-muted">The General Knowledge paper in the CDS exam is a major hurdle. We provide a deep dive into history, geography, and current affairs weightage...</p>
-                        <a href="/blog/cds/gs-strategy" class="btn btn-outline-primary btn-sm">Read More</a>
-                    </div>
-                </div>
-
-                <div class="educational-text mt-5">
-                    <h2 class="section-header">Navigating the CDS Examination Path</h2>
-                    <p>Preparing for the Combined Defence Services (CDS) exam is not just about academic knowledge; it is about developing an officer-like personality. While the written exam tests your grasp of English and Mathematics, the subsequent SSB interview evaluates your psychological fitness. At EduPrep, we provide resources that cover the entire syllabus while offering tips on how to improve your physical fitness and general awareness.</p>
-                </div>
-
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold">Organic Chemistry: Mastering SN1 and SN2 Reactions</h5>
-                        <p class="card-text text-muted">Understand the fundamental differences in reaction mechanisms, solvent effects, and stereochemistry frequently tested in JEE Advanced...</p>
-                        <a href="/blog/jee/organic-mechanisms" class="btn btn-outline-primary btn-sm">Read More</a>
+                <div class="card mb-4 bg-light border-0">
+                    <div class="card-body d-flex align-items-center">
+                        <div>
+                            <h5 class="fw-bold">Universal Prep Strategy</h5>
+                            <p class="mb-0">Regardless of the exam, <strong>Consistency</strong> and <strong>Mock Tests</strong> are your best friends. Download our weekly planner to track your progress.</p>
+                        </div>
                     </div>
                 </div>
 
@@ -91,15 +113,20 @@
 
             <div class="col-md-4">
                 <div class="p-4 mb-3 bg-white rounded shadow-sm sticky-top" style="top: 80px;">
-                    <h4 class="fw-bold mb-3">Aspirant Tools</h4>
+                    <h4 class="fw-bold mb-3">Quick Tools</h4>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="/blog/tools/jee-rank-predictor" class="text-decoration-none text-dark">IIT JEE Rank Predictor</a></li>
-                        <li class="mb-2"><a href="/blog/tools/cds-age-calculator" class="text-decoration-none text-dark">CDS Age Eligibility Calculator</a></li>
-                        <li class="mb-2"><a href="/blog/tools/pyq-downloads" class="text-decoration-none text-dark">Download Previous Year PDFs</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-dark">IIT JEE Rank Predictor</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-dark">CDS Age Calculator</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-dark">SSC CPO Cutoff Analytics</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-dark">Download PYQ PDFs</a></li>
                     </ul>
                     <hr>
-                    <p class="small text-muted">Join 10,000+ students on our Telegram channel for daily quizzes.</p>
-                    <a href="https://t.me/pwthorxiityatra" class="btn btn-info btn-sm w-100 text-white">Join Telegram</a>
+                    <div class="text-center">
+                        <p class="small text-muted">Join 10,000+ students for daily quizzes.</p>
+                        <img src="https://via.placeholder.com/50?text=TG" class="rounded-circle mb-2" alt="Telegram">
+                        <br>
+                        <a href="https://t.me/pwthorxiityatra" class="btn btn-info btn-sm w-100 text-white">Join Telegram</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -107,26 +134,8 @@
 
     <footer class="footer">
         <div class="container text-center">
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <h5 class="fw-bold mb-3">About EduPrep</h5>
-                    <p class="small text-muted">EduPrep provides high-quality educational resources, study notes, and exam strategies for students preparing for India's toughest competitive exams.</p>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <h5 class="fw-bold mb-3">Quick Navigation</h5>
-                    <ul class="list-unstyled small">
-                        <li><a href="/" class="text-white text-decoration-none">Home</a></li>
-                        <li><a href="/privacy-policy" class="text-white text-decoration-none">Privacy Policy</a></li>
-                        <li><a href="/contact" class="text-white text-decoration-none">Contact Us</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <h5 class="fw-bold mb-3">Connect With Us</h5>
-                    <p class="small text-muted">Telegram: @pwthorxiityatra<br>Email: support@eduprep.site</p>
-                </div>
-            </div>
-            <hr class="my-4">
             <p class="mb-0 small text-muted">&copy; 2026 EduPrep Portal. All rights reserved.</p>
+            <a href="/privacy-policy" class="text-white small">Privacy Policy</a>
         </div>
     </footer>
 
