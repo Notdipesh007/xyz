@@ -4,7 +4,7 @@ import string
 import random
 
 app = Flask(__name__)
-app.secret_key = "super_secret_key_for_session" # Change this!
+app.secret_key = "tu6fgjyuo7i65u7rtgwet3y5y6u" # Change this!
 
 # Database-like storage (For Heroku, use Redis or PostgreSQL for persistence)
 url_db = {}
@@ -67,6 +67,27 @@ def final_page():
     short_id = session.get('target_id')
     final_url = url_db.get(short_id)
     return render_template('final_page.html', final_url=final_url)
+
+# --- ROUTE: DYNAMIC BLOG PAGES ---
+@app.route('/blog/<category>/<slug>')
+def blog_post(category, slug):
+    # In a real app, you'd fetch this from a database. 
+    # For approval, we can use a dictionary or template logic.
+    return render_template('blog_template.html', category=category, title=slug.replace('-', ' ').title())
+
+# --- ROUTE: PRIVACY POLICY ---
+@app.route('/privacy-policy')
+def privacy():
+    return render_template('privacy.html')
+
+# --- ROUTE: CONTACT US ---
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    if request.method == 'POST':
+        # Logic to handle form (e.g., send email or save to DB)
+        flash("Thank you! Your message has been sent.")
+        return render_template('contact.html', success=True)
+    return render_template('contact.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
