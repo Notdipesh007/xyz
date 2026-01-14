@@ -4,9 +4,9 @@ import string
 import random
 
 app = Flask(__name__)
-app.secret_key = "tu6fgjyuo7i65u7rtgwet3y5y6u" # Change this!
+app.secret_key = "tu6fgjyuo7i65u7rtgwet3y5y6u" 
 
-# --- 1. CONTENT DATABASE (Add your articles here) ---
+# --- 1. CONTENT DATABASE (Updated with NEET, CA, Teaching) ---
 blog_data = {
     # JEE Articles
     "math-shortcuts": {
@@ -14,11 +14,9 @@ blog_data = {
         "content": """
             <p class="lead">Time management is the key to clearing JEE. Here are the essential shortcuts you need for 2026.</p>
             <h3>1. Integration by Parts (DI Method)</h3>
-            <p>Don't use the standard formula for repeated integration. Use the DI (Differentiation-Integration) table method to solve integrals of type x^n * e^x in seconds.</p>
+            <p>Don't use the standard formula for repeated integration. Use the DI (Differentiation-Integration) table method.</p>
             <h3>2. Coordinate Geometry</h3>
-            <p>Memorize the condition of tangency for Circle, Parabola, and Ellipse (c = a/m, c^2 = a^2(1+m^2)). This solves 40% of questions directly.</p>
-            <h3>3. Matrices</h3>
-            <p>For finding the inverse of a 3x3 matrix, use the Cayley-Hamilton theorem shortcut instead of the traditional adjoint method.</p>
+            <p>Memorize the condition of tangency for Circle, Parabola, and Ellipse. This solves 40% of questions directly.</p>
         """
     },
     "organic-chemistry": {
@@ -30,78 +28,85 @@ blog_data = {
                 <li><strong>SN1:</strong> Two steps, carbocation intermediate, favors polar protic solvents.</li>
                 <li><strong>SN2:</strong> Single step, transition state, favors polar aprotic solvents.</li>
             </ul>
-            <p>Focus heavily on 'General Organic Chemistry' (GOC) effects like Resonance and Hyperconjugation before starting reactions.</p>
         """
     },
     
-    # CDS Articles
+    # NEET Articles (NEW)
+    "neet-biology": {
+        "title": "How to Score 340+ in NEET Biology",
+        "content": """
+            <p>Biology constitutes 50% of the NEET paper. Neglecting NCERT is the biggest mistake students make.</p>
+            <h3>The NCERT Strategy</h3>
+            <p>Every line of the NCERT Biology textbooks (Class 11 & 12) is a potential MCQ. Focus on:</p>
+            <ul>
+                <li><strong>Genetics & Evolution:</strong> High weightage unit.</li>
+                <li><strong>Human Physiology:</strong> Diagram-based questions.</li>
+                <li><strong>Ecology:</strong> Often ignored but very scoring.</li>
+            </ul>
+        """
+    },
+    "neet-physics": {
+        "title": "Physics for Medical Students: The Fear Factor",
+        "content": """
+            <p>Medical students often struggle with Physics calculations. The key is to focus on modern physics and mechanics.</p>
+            <h3>Priority Chapters</h3>
+            <p>Semiconductors, Atoms & Nuclei, and Dual Nature of Matter are high-scoring and calculation-light.</p>
+        """
+    },
+
+    # CA Articles (NEW)
+    "ca-roadmap": {
+        "title": "Chartered Accountancy: Foundation to Final",
+        "content": """
+            <p>The CA course is a marathon, not a sprint. It tests your perseverance more than your intelligence.</p>
+            <h3>1. CA Foundation</h3>
+            <p>The entry-level test. Focus heavily on Accounting and Business Law.</p>
+            <h3>2. Intermediate</h3>
+            <p>The real filter. Group 1 (Accounting, Law, Costing, Tax) requires consistent daily practice of 8-10 hours.</p>
+        """
+    },
+
+    # Teaching Exam Articles (NEW)
+    "ctet-cdp": {
+        "title": "CTET: Child Development & Pedagogy (CDP)",
+        "content": """
+            <p>To clear CTET or any State TET, mastering CDP is non-negotiable as it covers 30 marks directly and influences pedagogy in other subjects.</p>
+            <h3>Key Theorists</h3>
+            <ul>
+                <li><strong>Piaget:</strong> Cognitive Development Stages.</li>
+                <li><strong>Vygotsky:</strong> Socio-Cultural Theory (ZPD).</li>
+                <li><strong>Kohlberg:</strong> Moral Development.</li>
+            </ul>
+        """
+    },
+
+    # Defense Articles
     "preparation-strategy": {
         "title": "CDS 2026: Complete 6-Month Strategy",
-        "content": """
-            <p>The Combined Defence Services exam is about speed and accuracy.</p>
-            <h3>English (100 Marks)</h3>
-            <p>Focus on Antonyms, Synonyms, and Idioms. Read 'The Hindu' editorial daily to improve comprehension.</p>
-            <h3>General Knowledge</h3>
-            <p>Do not study everything. Prioritize: 
-            <br>1. Modern History (1857-1947)
-            <br>2. Physical Geography
-            <br>3. Current Affairs (Last 6 months)</p>
-        """
+        "content": "<p>Focus on Antonyms, Synonyms, and Idioms. Read 'The Hindu' editorial daily.</p>"
     },
     "cds-2026-dates": {
         "title": "CDS 1 2026 Notification & Eligibility",
-        "content": """
-            <p><strong>Notification Date:</strong> December 2025</p>
-            <p><strong>Exam Date:</strong> April 2026</p>
-            <h3>Age Limits</h3>
-            <ul>
-                <li><strong>IMA:</strong> 19-24 Years</li>
-                <li><strong>OTA:</strong> 19-25 Years</li>
-            </ul>
-            <p>Ensure you have your degree certificate or provisional ready before the SSB interview.</p>
-        """
+        "content": "<p><strong>Exam Date:</strong> April 2026. <br><strong>Age Limit:</strong> 19-25 Years.</p>"
     },
-
-    # CAPF Articles
     "paper-2-tips": {
         "title": "How to Score 90+ in CAPF Paper 2",
-        "content": """
-            <p>Paper 2 is subjective and often the reason candidates fail. Here is the structure for a perfect essay.</p>
-            <h3>Essay Structure</h3>
-            <ul>
-                <li><strong>Introduction:</strong> Start with a quote or a recent statistic.</li>
-                <li><strong>Body:</strong> Divide into Social, Economic, and Political aspects.</li>
-                <li><strong>Conclusion:</strong> Always end on a futuristic, positive note (Way Forward).</li>
-            </ul>
-        """
+        "content": "<p>Paper 2 is subjective. Start with a quote or a recent statistic in your essay.</p>"
     },
-
-    # SSC Articles
     "cpo-guide": {
         "title": "SSC CPO: Physical & Medical Standards",
-        "content": """
-            <p>SSC CPO is unique because the Physical Endurance Test (PET) is qualifying but mandatory.</p>
-            <h3>Male Candidates</h3>
-            <ul>
-                <li>1.6 Km Run in 6.5 Minutes</li>
-                <li>Long Jump: 3.65 Meters</li>
-                <li>High Jump: 1.2 Meters</li>
-            </ul>
-            <h3>Medical Tips</h3>
-            <p>Check for flat foot and knock knees immediately. LASIK surgery is allowed if done 6 months prior.</p>
-        """
+        "content": "<p>SSC CPO is unique because the Physical Endurance Test (PET) is qualifying but mandatory.</p>"
     },
     
-    # Default for generic pages
+    # Default
     "default": {
         "title": "Study Material",
         "content": "<p>This content is currently being updated. Please check back later for detailed notes and PDFs.</p>"
     }
 }
 
-# --- EXISTING LOGIC BELOW ---
+# --- EXISTING LOGIC ---
 url_db = {}
-
 def generate_id():
     chars = string.ascii_letters + string.digits
     return ''.join(random.choice(chars) for _ in range(6))
@@ -129,17 +134,14 @@ def start_short_path(short_id):
 def interstitial():
     step = session.get('step', 1)
     short_id = session.get('target_id')
-    
     if request.method == 'POST':
         user_answer = request.form.get('answer')
         correct_answer = request.form.get('correct')
-        
         if user_answer == correct_answer:
             session['step'] = step + 1
             if session['step'] > 5:
                 return redirect(url_for('final_page'))
             return redirect(url_for('interstitial'))
-
     num1, num2 = random.randint(1, 10), random.randint(1, 10)
     correct = num1 + num2
     options = [correct, correct + 2, correct - 1]
@@ -152,15 +154,10 @@ def final_page():
     final_url = url_db.get(short_id)
     return render_template('final_page.html', final_url=final_url)
 
-# --- UPDATED DYNAMIC BLOG ROUTE ---
 @app.route('/blog/<category>/<slug>')
 def blog_post(category, slug):
-    # Fetch data from our dictionary
     data = blog_data.get(slug, blog_data["default"])
-    
-    # If the title wasn't found in dictionary, use the slug as a fallback title
     title = data["title"] if slug in blog_data else slug.replace('-', ' ').title()
-    
     return render_template('blog_template.html', category=category, title=title, content=data["content"])
 
 @app.route('/privacy-policy')
