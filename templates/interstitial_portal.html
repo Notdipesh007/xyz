@@ -7,151 +7,98 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
     <style>
-        body { font-family: 'Roboto', sans-serif; background-color: #f4f6f9; color: #333; padding-top: 50px; }
-        .step-header { background: #e74c3c; color: white; position: fixed; top: 0; width: 100%; z-index: 2000; padding: 10px; text-align: center; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        body { font-family: 'Roboto', sans-serif; background-color: #f4f6f9; color: #333; padding-top: 60px; }
+        .step-header { background: #e74c3c; color: white; position: fixed; top: 0; width: 100%; z-index: 2000; padding: 10px; text-align: center; font-weight: bold; }
         .navbar { background-color: #2c3e50; }
-        .hero-section { 
-            background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.8)), url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1350&q=80'); 
-            background-size: cover; background-position: center; color: white; padding: 80px 0; text-align: center; 
-        }
-        .card { border: none; border-radius: 8px; margin-bottom: 30px; background: white; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .exam-img { width: 100%; height: 200px; object-fit: cover; }
-        .section-header { border-left: 5px solid #3498db; padding-left: 15px; margin-bottom: 25px; font-weight: 700; color: #2c3e50; margin-top: 40px; }
-        .sidebar-box { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 30px; }
-        .footer { background: #2c3e50; color: #ecf0f1; padding: 60px 0; margin-top: 50px; }
-        
-        /* Quiz Specific Styling */
-        .quiz-container { background: #fffdf0; border: 2px dashed #f1c40f; padding: 30px; margin-bottom: 40px; border-radius: 12px; }
-        .option-btn { margin: 5px; min-width: 80px; font-weight: bold; }
-        .continue-section { padding: 60px 0; background: #f8f9fa; border-top: 2px solid #dee2e6; text-align: center; }
+        .hero-section { background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.8)); padding: 60px 0; color: white; text-align: center; }
+        .quiz-container { background: white; border: 2px solid #3498db; padding: 30px; margin: 20px 0; border-radius: 8px; display: none; }
+        .continue-section { margin-top: 50px; padding: 40px; text-align: center; display: none; }
+        .timer-badge { font-size: 1.5rem; background: #2c3e50; color: white; padding: 10px 20px; border-radius: 50px; }
+        .content-block { background: white; padding: 30px; margin-bottom: 30px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
     </style>
 </head>
 <body>
 
     <div class="step-header">
-        STEP {{ step }} / 5: VERIFICATION REQUIRED TO ACCESS LINK
+        STEP {{ step }} / 5: PLEASE WAIT <span id="timer">15</span> SECONDS
     </div>
 
     <nav class="navbar navbar-dark">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="#"><i class="fas fa-graduation-cap me-2"></i>EDUPREP</a>
-        </div>
+        <div class="container"><a class="navbar-brand fw-bold" href="#">EDUPREP</a></div>
     </nav>
 
-    <header class="hero-section">
-        <div class="container">
-            <h1 class="display-5 fw-bold">Human Verification Step</h1>
-            <p class="lead">Please interact with the content below and solve the quiz to enable your destination link.</p>
-        </div>
-    </header>
-
-    <div class="container mt-5">
+    <div class="container my-5">
         <div class="row">
             <div class="col-lg-8">
-                
-                <div class="quiz-container text-center">
-                    <h4 class="fw-bold mb-3"><i class="fas fa-robot me-2"></i>Quick Math Quiz</h4>
-                    <p class="lead">Solve this to unlock the continue button: <strong>{{ n1 }} + {{ n2 }} = ?</strong></p>
-                    <div class="mb-3">
-                        {% for opt in options %}
-                            <button type="button" class="btn btn-outline-warning text-dark option-btn" onclick="selectAnswer(this, '{{ opt }}')">{{ opt }}</button>
-                        {% endfor %}
-                    </div>
-                    <small class="text-muted">Select the correct answer, then scroll to the bottom to continue.</small>
+                <div class="text-center mb-4"><p class="text-muted">Advertisement</p></div>
+
+                <div class="content-block">
+                    <h2 class="fw-bold">Comprehensive JEE Main 2026 Guide</h2>
+                    <p>Physics remains a challenge for many. Focus on Mechanics and Electrodynamics as they constitute 45% of the paper. Our experts suggest practicing at least 50 MCQs daily from previous years' papers.</p>
+                    <p>In Chemistry, NCERT is your bible. For Organic, understand mechanisms rather than memorizing reactions. For Inorganic, periodic properties and chemical bonding are foundational.</p>
                 </div>
 
-                <div id="jee" class="mb-5">
-                    <h2 class="section-header">Science Stream: JEE & NEET</h2>
-                    <div class="card">
-                        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=800&q=80" class="exam-img" alt="Mathematics">
-                        <div class="card-body">
-                            <h4 class="card-title fw-bold">JEE Mathematics Shortcuts</h4>
-                            <p class="card-text">Learn proprietary shortcuts for Calculus and Vectors that cut solving time by 50%.</p>
+                <div class="content-block">
+                    <h2 class="fw-bold">NEET UG: Botany vs Zoology Weightage</h2>
+                    <p>Botany often includes complex cycles like Photosynthesis and Respiration. Zoology focuses heavily on Human Physiology. Candidates scoring 340+ in Biology usually have the NCERT diagrams memorized to the last detail.</p>
+                </div>
+
+                <div class="content-block">
+                    <h2 class="fw-bold">Defense Careers: CDS vs AFCAT</h2>
+                    <p>The Combined Defence Services (CDS) exam is conducted by UPSC and covers English, General Knowledge, and Mathematics. AFCAT is specific to the Air Force. Physical fitness is equally important; start your 5km runs today.</p>
+                </div>
+
+                <div id="verificationArea">
+                    <div class="quiz-container text-center" id="quizBox">
+                        <h3>Verification Quiz</h3>
+                        <p class="lead">Solve: <strong>{{ n1 }} + {{ n2 }} = ?</strong></p>
+                        <div class="mb-3">
+                            {% for opt in options %}
+                                <button type="button" class="btn btn-outline-primary m-1" onclick="selectAnswer(this, '{{ opt }}')">{{ opt }}</button>
+                            {% endfor %}
                         </div>
                     </div>
-                </div>
 
-                <div id="commerce" class="mb-5">
-                    <h2 class="section-header">Commerce: Chartered Accountancy (CA)</h2>
-                    <div class="card">
-                        <img src="https://images.unsplash.com/photo-1554224155-9840635290aa?auto=format&fit=crop&w=800&q=80" class="exam-img" alt="Finance">
-                        <div class="card-body">
-                            <h4 class="card-title fw-bold">CA Foundation & Intermediate</h4>
-                            <p class="card-text">Our study maps help you visualize complex sections and Ind AS standards.</p>
-                        </div>
+                    <div class="continue-section" id="continueBox">
+                        <form method="POST">
+                            <input type="hidden" name="correct" value="{{ correct }}">
+                            <input type="hidden" name="answer" id="userAnswer">
+                            <button type="submit" id="continueBtn" class="btn btn-success btn-lg px-5 shadow" disabled>CONTINUE TO NEXT STEP</button>
+                        </form>
                     </div>
                 </div>
-
-                <div id="defense" class="mb-5">
-                    <h2 class="section-header">Defence: CDS & CAPF</h2>
-                    <p>Detailed strategies for CDS (OTA/IMA) and CAPF Assistant Commandant exams.</p>
-                </div>
-
-                <div id="downloads" class="mb-5">
-                    <h3 class="fw-bold mb-3">Free Study Material Repository</h3>
-                    <div class="list-group">
-                        <div class="list-group-item d-flex justify-content-between align-items-center">
-                            <span><i class="fas fa-file-pdf me-2 text-danger"></i> NEET Biology NCERT Extracts</span>
-                            <span class="badge bg-primary rounded-pill">PDF</span>
-                        </div>
-                        <div class="list-group-item d-flex justify-content-between align-items-center">
-                            <span><i class="fas fa-file-pdf me-2 text-danger"></i> IIT JEE PYQs (2015-2025)</span>
-                            <span class="badge bg-primary rounded-pill">PDF</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="continue-section rounded mb-5">
-                    <form method="POST">
-                        <input type="hidden" name="correct" value="{{ correct }}">
-                        <input type="hidden" name="answer" id="userAnswer">
-                        <button type="submit" id="continueBtn" class="btn btn-success btn-lg px-5 shadow" disabled>
-                            CONTINUE TO {% if step < 5 %}STEP {{ step + 1 }}{% else %}FINAL LINK{% endif %}
-                        </button>
-                    </form>
-                    <p class="mt-3 text-muted small">The button will enable once the quiz above is solved correctly.</p>
-                </div>
-
             </div>
 
             <div class="col-lg-4">
-                <div class="sidebar-box">
-                    <h5 class="fw-bold mb-3">Search Portal</h5>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search (e.g. NEET)">
-                        <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
-                    </div>
-                </div>
-
-                <div class="sidebar-box">
-                    <h5 class="fw-bold mb-3"><i class="fas fa-tools me-2"></i>Student Tools</h5>
+                <div class="content-block">
+                    <h5>Latest Exam Notifications</h5>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary">NEET Rank Predictor</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary">Defence Age Calculator</a></li>
+                        <li>JEE Session 1: Jan 2026</li>
+                        <li>NEET UG: May 2026</li>
+                        <li>CDS 1: April 2026</li>
                     </ul>
                 </div>
-            </div>
+                </div>
         </div>
     </div>
 
-    <footer class="footer">
-        <div class="container text-center">
-            <p>&copy; 2026 EduPrep Portal. All rights reserved.</p>
-        </div>
-    </footer>
-
     <script>
+        let timeLeft = 15;
+        const timerElement = document.getElementById('timer');
+        const countdown = setInterval(() => {
+            timeLeft--;
+            timerElement.innerText = timeLeft;
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                document.getElementById('quizBox').style.display = 'block';
+                document.getElementById('continueBox').style.display = 'block';
+            }
+        }, 1000);
+
         function selectAnswer(btn, value) {
-            // Reset button styles
-            document.querySelectorAll('.option-btn').forEach(b => {
-                b.classList.remove('btn-warning');
-                b.classList.add('btn-outline-warning');
-            });
-            // Highlight selected button
-            btn.classList.remove('btn-outline-warning');
-            btn.classList.add('btn-warning');
-            // Update hidden input and enable submit button
+            document.querySelectorAll('.btn-outline-primary').forEach(b => b.classList.replace('btn-primary', 'btn-outline-primary'));
+            btn.classList.replace('btn-outline-primary', 'btn-primary');
             document.getElementById('userAnswer').value = value;
             document.getElementById('continueBtn').disabled = false;
         }
