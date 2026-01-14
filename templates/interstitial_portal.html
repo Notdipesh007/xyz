@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step {{ step }} of 5 | EduPrep</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #f4f6f9; color: #333; padding-top: 60px; }
+        .step-header { background: #e74c3c; color: white; position: fixed; top: 0; width: 100%; z-index: 2000; padding: 10px; text-align: center; font-weight: bold; }
+        .navbar { background-color: #2c3e50; }
+        .hero-section { background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.8)); padding: 60px 0; color: white; text-align: center; }
+        .quiz-container { background: white; border-radius: 8px; border: 2px solid #3498db; padding: 30px; margin: 20px 0; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .option-btn { margin: 5px; min-width: 100px; }
+        .continue-section { margin-top: 500px; padding: 40px; text-align: center; border-top: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+
+    <div class="step-header">
+        YOU ARE ON STEP {{ step }} OF 5. PLEASE SOLVE THE QUIZ TO PROCEED.
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">EDUPREP</a>
+        </div>
+    </nav>
+
+    <header class="hero-section">
+        <div class="container">
+            <h1 class="fw-bold">Verifying Your Request</h1>
+            <p class="lead">Please complete the quick verification below to access your educational resources.</p>
+        </div>
+    </header>
+
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                
+                <div class="quiz-container text-center">
+                    <h3 class="mb-4">Verification Quiz</h3>
+                    <p class="lead">Solve this to enable the continue button: <strong>{{ n1 }} + {{ n2 }} = ?</strong></p>
+                    
+                    <div class="mb-4">
+                        {% for opt in options %}
+                            <button type="button" class="btn btn-outline-primary option-btn" onclick="selectAnswer(this, '{{ opt }}')">{{ opt }}</button>
+                        {% endfor %}
+                    </div>
+                    <p class="text-muted small">Scroll down to click "Continue" after selecting your answer.</p>
+                </div>
+
+                <div class="alert alert-info mt-4">
+                    <strong>Note:</strong> You must solve the math problem above before the continue button will work.
+                </div>
+
+                <div class="continue-section">
+                    <form method="POST" id="quizForm">
+                        <input type="hidden" name="correct" value="{{ correct }}">
+                        <input type="hidden" name="answer" id="userAnswer">
+                        <button type="submit" id="continueBtn" class="btn btn-success btn-lg px-5" disabled>CONTINUE TO STEP {{ step + 1 if step < 5 else 'FINAL' }}</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function selectAnswer(btn, value) {
+            // Remove active class from all buttons
+            document.querySelectorAll('.option-btn').forEach(b => b.classList.replace('btn-primary', 'btn-outline-primary'));
+            // Highlight selected
+            btn.classList.replace('btn-outline-primary', 'btn-primary');
+            // Set hidden input and enable continue button
+            document.getElementById('userAnswer').value = value;
+            document.getElementById('continueBtn').disabled = false;
+        }
+    </script>
+</body>
+</html>
