@@ -737,6 +737,103 @@ blog_data = {
             <p class="text-muted"><em>Becoming a Sub-Inspector involves commanding a platoon and maintaining law and order in volatile situations. The rigorous physical standards ensure that only those with the grit to serve the nation make the cut. Train hard.</em></p>
         """
     },
+    # --- BROKEN LINK FIXES & NEW CONTENT ---
+    
+    "jee-pyq": {
+        "title": "Importance of JEE Previous Year Questions (2015-2025)",
+        "content": "<p>Solving PYQs is the single most effective strategy for JEE. Trends show that 40% of concepts repeat.</p><h3>How to analyze PYQs?</h3><p>Don't just solve them. Group them chapter-wise. Identify the 'Repeated Concepts' like Rotational Motion torque problems or Thermodynamics graphs.</p><h3>Download Links</h3><p>We have compiled the last 10 years of papers. Check our Telegram channel for the direct PDF files.</p>"
+    },
+    "neet-bio-extracts": {
+        "title": "NEET Biology NCERT Extracts: Hidden Lines Decoded",
+        "content": "<p>NTA asks questions from diagram captions and summaries. This guide highlights the overlooked lines of NCERT Biology.</p><h3>Morphology Examples</h3><p>Memorize the examples of aestivation and placentation. Mnemonics are provided here.</p>"
+    },
+    "ca-foundation-papers": {
+        "title": "CA Foundation Previous Year Papers & Mock Test Strategy",
+        "content": "<p>The ICAI exams are lengthy. Practice writing answers for Law and BCR to manage time.</p><h3>Law Writing Tips</h3><p>Start with the 'Provision', then 'Facts of the Case', and finally the 'Conclusion'. Use legal terms like 'Void ab initio'.</p>"
+    },
+    "neet-rank-predictor-guide": {
+        "title": "How to Use a NEET Rank Predictor Effectively",
+        "content": "<p>Predicting your rank helps in counseling strategy. Rank depends on the difficulty level of the paper and the number of aspirants.</p><h3>Marks vs Rank</h3><p>Usually, 650+ marks guarantee a rank under 5000. 600+ marks land you around 20k-25k rank.</p>"
+    },
+    "ca-articleship-guide": {
+        "title": "CA Articleship: Big 4 vs. Mid-Size Firms",
+        "content": "<p>The biggest dilemma for a CA Intermediate student. Where should you apply?</p><h3>Big 4 Experience</h3><p>Great for audit exposure and brand value. Specific domain knowledge. Long hours.</p><h3>Mid-Size Firms</h3><p>Holistic learning. You get to do Tax, Audit, and Accounting. Better for starting your own practice later.</p>"
+    },
+    "age-calc": {
+        "title": "Defence Exam Age Calculator: CDS, AFCAT & NDA",
+        "content": "<p>Age criteria are strict in defense. A single day can disqualify you.</p><h3>CDS Age Limits</h3><p>IMA: 19-24 years. OTA: 19-25 years. The crucial date is usually 1st Jan or 1st July of the course year.</p><h3>NDA Age Limits</h3><p>16.5 to 19.5 years. Check your matriculation certificate carefully.</p>"
+    },
+    "syllabus-2026": {
+        "title": "Exam Syllabus Updates 2026: JEE, NEET & UPSC",
+        "content": "<p>Stay ahead of the curve with the latest syllabus changes for 2026.</p><h3>JEE Mains Changes</h3><p>No changes in Physics. In Chemistry, P-Block syllabus has been reduced. Solid State is removed.</p><h3>NEET Changes</h3><p>Added 'Frog' in Animal structure. Removed 'Digestion' chapter from Human Physiology.</p>"
+    },
+    
+    # --- ADDITIONAL CONTENT TO REACH 30+ ARTICLES ---
+    
+    "organic-chemistry-tips": {
+        "title": "5 Golden Rules to Master Organic Chemistry",
+        "content": "<p>Organic chemistry is about mechanisms, not rote learning.</p><h3>1. GOC is Key</h3><p>Master Inductive, Resonance, and Hyperconjugation effects first.</p><h3>2. Reagents</h3><p>Make a list of oxidizing and reducing agents (LiAlH4, KMnO4) and their specific functions.</p>"
+    },
+    "inorganic-chemistry-trends": {
+        "title": "Inorganic Chemistry: Periodic Table Trends",
+        "content": "<p>Inorganic chemistry is high scoring. Focus on the exceptions in Ionization Energy and Atomic Radius.</p><h3>Chemical Bonding</h3><p>MOT (Molecular Orbital Theory) and VSEPR theory account for 2-3 questions in every paper.</p>"
+    },
+    "physics-formula-sheet": {
+        "title": "Must-Know Physics Formulas for Mechanics",
+        "content": "<p>Mechanics problems require formula application.</p><h3>Newton's Laws</h3><p>F=ma is just the start. Learn the impulse-momentum theorem.</p><h3>Work Power Energy</h3><p>Work-Energy theorem is the most versatile tool in Physics. Apply it when time is not given.</p>"
+    },
+    "history-modern-india": {
+        "title": "Modern History Timeline: 1857 to 1947",
+        "content": "<p>For UPSC and CDS, Modern History is crucial.</p><h3>Gandhian Era</h3><p>1915: Return of Gandhi. 1917: Champaran. 1919: Jallianwala Bagh. 1920: Non-Cooperation Movement.</p>"
+    },
+    "polity-articles": {
+        "title": "Important Articles of Indian Constitution for CDS/NDA",
+        "content": "<p>Polity is the most scoring subject in GK.</p><h3>Fundamental Rights</h3><p>Articles 12-35. Remember the writs under Article 32.</p><h3>President</h3><p>Articles 52-62. Pardoning powers and impeachment process.</p>"
+    },
+    "geography-maps": {
+        "title": "Geography Map Work: Rivers and Mountains",
+        "content": "<p>Questions on tributaries and mountain ranges are common.</p><h3>Himalayas</h3><p>Order from North to South: Karakoram, Ladakh, Zaskar, Pir Panjal.</p><h3>Peninsular Rivers</h3><p>Godavari, Krishna, Cauvery. Know their origin points.</p>"
+    },
+    "current-affairs-strategy": {
+        "title": "How to Cover Current Affairs for Defence Exams",
+        "content": "<p>Don't read everything. Focus on Defense.</p><h3>Military Exercises</h3><p>Yudh Abhyas, Malabar, Indra. Know the participating countries.</p><h3>Awards</h3><p>Param Vir Chakra, Kirti Chakra, and recent Padma awards.</p>"
+    },
+    "ssb-interview-guide": {
+        "title": "SSB Interview: The 5-Day Procedure Explained",
+        "content": "<p>SSB is a personality test.</p><h3>Day 1: Screening</h3><p>OIR test and PPDT (Picture Perception). Confidence is key in narration.</p><h3>Day 2: Psych Tests</h3><p>TAT, WAT, SRT, and Self Description. Be positive and realistic.</p>"
+    },
+    "afcat-strategy": {
+        "title": "AFCAT 2026: Strategy for 200+ Score",
+        "content": "<p>AFCAT is a speed test.</p><h3>Reasoning</h3><p>Dot situation and spatial reasoning are unique to AFCAT. Practice them well.</p><h3>English</h3><p>Idioms and phrases are asked frequently. Memorize standard lists.</p>"
+    },
+    "nda-vs-cds": {
+        "title": "NDA vs CDS: Which Entry is Right for You?",
+        "content": "<p>Both lead to the armed forces, but the entry point differs.</p><h3>NDA</h3><p>After Class 12th. Training at Khadakwasla for 3 years + 1 year at academy.</p><h3>CDS</h3><p>After Graduation. Direct entry to IMA/OTA/AFA/INA.</p>"
+    },
+    "banking-exam-pattern": {
+        "title": "IBPS PO & Clerk: Exam Pattern & Strategy",
+        "content": "<p>Banking exams are about speed and accuracy.</p><h3>Quant</h3><p>Data Interpretation (DI) is the major chunk. Master percentage and ratio calculations.</p><h3>Reasoning</h3><p>Puzzles and Seating Arrangement. Practice daily.</p>"
+    },
+    "ssc-cgl-guide": {
+        "title": "SSC CGL 2026: Posts and Salary Structure",
+        "content": "<p>The mini-IAS exam of India.</p><h3>Top Posts</h3><p>Income Tax Inspector, MEA ASO, Excise Inspector.</p><h3>Exam Pattern</h3><p>Tier 1 is qualifying. Tier 2 decides the rank. Focus on Typing and Computer knowledge too.</p>"
+    },
+    "clat-preparation": {
+        "title": "CLAT 2026: Legal Reasoning Tips",
+        "content": "<p>Law entrance requires reading speed.</p><h3>Legal Aptitude</h3><p>Do not use prior knowledge. Stick to the principle given in the passage.</p><h3>Current Affairs</h3><p>Focus on Legal news and landmark judgments.</p>"
+    },
+    "gate-cse-strategy": {
+        "title": "GATE CSE 2026: Syllabus and High Weightage Topics",
+        "content": "<p>Crack PSU jobs or M.Tech in IITs.</p><h3>Data Structures & Algo</h3><p>The most important subject. Arrays, Linked Lists, Trees, Graphs.</p><h3>Operating Systems</h3><p>Process management, Deadlocks, and Paging.</p>"
+    },
+    "upsc-prelims-strategy": {
+        "title": "UPSC CSE Prelims: Elimination Techniques",
+        "content": "<p>Prelims is becoming tougher.</p><h3>Elimination</h3><p>Extreme statements ('All', 'None', 'Only') are often wrong. Use logic to eliminate options.</p>"
+    },
+    "cs-executive-guide": {
+        "title": "Company Secretary (CS) Executive: Module 1 vs Module 2",
+        "content": "<p>CS is about Law compliance.</p><h3>Company Law</h3><p>The bible for CS. Sections of Companies Act 2013 must be on your fingertips.</p>"
+    },
     
     # Default
     "default": {
@@ -866,9 +963,12 @@ def final_page():
 
 @app.route('/blog/<category>/<slug>')
 def blog_post(category, slug):
+    # Fetch data or fall back to default if slug not found
     data = blog_data.get(slug, blog_data["default"])
-    title = data["title"] if slug in blog_data else slug.replace('-', ' ').title()
-    return render_template('blog_template.html', category=category, title=title, content=data["content"])
+    # If title missing in data, generate from slug
+    title = data.get("title", slug.replace('-', ' ').title())
+    content = data.get("content", "Content coming soon.")
+    return render_template('blog_template.html', category=category, title=title, content=content)
 
 @app.route('/privacy-policy')
 def privacy():
@@ -885,6 +985,10 @@ def contact():
         flash("Thank you! Your message has been sent.")
         return render_template('contact.html', success=True)
     return render_template('contact.html')
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
