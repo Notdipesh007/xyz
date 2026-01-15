@@ -880,6 +880,23 @@ blog_data = {
         "title": "Company Secretary (CS) Executive: Module 1 vs Module 2",
         "content": "<p>CS is about Law compliance.</p><h3>Company Law</h3><p>The bible for CS. Sections of Companies Act 2013 must be on your fingertips.</p>"
     },
+    # --- STUDY ABROAD ARTICLES (HIGH CPC) ---
+    "ielts-vs-toefl": {
+        "title": "IELTS vs TOEFL: Which is Easier? Complete Comparison",
+        "content": "<p>Planning to study abroad? Choosing the right English proficiency test is the first step.</p><h3>Format Differences</h3><p><strong>IELTS:</strong> Uses British English. Available in Paper and Computer modes. Speaking test is face-to-face.</p><p><strong>TOEFL:</strong> Uses American English. Completely computer-based. Speaking is recorded via microphone.</p><h3>Which is Easier?</h3><p>IELTS is generally considered easier for students comfortable with a variety of accents and face-to-face interaction. TOEFL requires strong typing speed and concentration.</p>"
+    },
+    "gre-score-320-tips": {
+        "title": "How to Score 320+ in GRE: Verbal & Quant Strategy",
+        "content": "<p>A 320+ score opens doors to Ivy League and top MS programs.</p><h3>Quant Strategy</h3><p>Focus on Data Interpretation and Geometry. Careless mistakes are the biggest enemy.</p><h3>Verbal Strategy</h3><p>Memorize high-frequency words (Barron's 333). Practice Reading Comprehension daily.</p>"
+    },
+    "sat-universities": {
+        "title": "Top Universities Accepting SAT Scores (USA & Beyond)",
+        "content": "<p>SAT is not just for US colleges anymore.</p><h3>Global Acceptance</h3><p>Universities in Singapore (NUS, NTU), Canada, and even India (Ashoka, Krea) accept SAT scores.</p><h3>Good Score Range</h3><p>Aim for 1350+ for scholarships and 1500+ for top-tier universities.</p>"
+    },
+    "gmat-exam-pattern": {
+        "title": "GMAT Focus Edition: New Exam Pattern 2026",
+        "content": "<p>The GMAT has changed. The new 'Focus Edition' is shorter.</p><h3>Changes</h3><p>No AWA (Essay). Data Insights section is now crucial. Total time is reduced to 2 hours 15 minutes.</p>"
+    },
     
     # Default
     "default": {
