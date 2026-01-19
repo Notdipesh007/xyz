@@ -1380,55 +1380,55 @@ def shorten():
     return {"short_url": f"{request.host_url}s/{short_id}"}
 
 
-@app.route('/s/<short_id>')
-def start_short_path(short_id):
+#@app.route('/s/<short_id>')
+#def start_short_path(short_id):
     # Retrieve from Redis
-    if not db.exists(short_id):
-        return "URL Not Found", 404
+    #if not db.exists(short_id):
+    #    return "URL Not Found", 404
         
-    session['step'] = 1
-    session['target_id'] = short_id
-    return redirect(url_for('interstitial'))
+  #  session['step'] = 1
+  #  session['target_id'] = short_id
+ #   return redirect(url_for('interstitial'))
 
 
-@app.route('/interstitial', methods=['GET', 'POST'])
-def interstitial():
-    step = session.get('step', 1)
-    short_id = session.get('target_id')
+###@app.route('/interstitial', methods=['GET', 'POST'])
+#def interstitial():
+ #   step = session.get('step', 1)
+  #  short_id = session.get('target_id')
     
-    if not short_id:
-        return redirect(url_for('index'))
+   # if not short_id:
+   #     return redirect(url_for('index'))
 
-    if request.method == 'POST':
-        user_answer = request.form.get('answer')
-        correct_answer = request.form.get('correct')
+  #  if request.method == 'POST':
+    #    user_answer = request.form.get('answer')
+    #    correct_answer = request.form.get('correct')
         
         # Only move forward if the answer is correct
-        if user_answer == correct_answer:
-            session['step'] = step + 1
-            if session['step'] > 5:
-                return redirect(url_for('final_page'))
-            return redirect(url_for('interstitial'))
-        else:
-            flash("Incorrect answer, please try again.")
+    #    if user_answer == correct_answer:
+      #      session['step'] = step + 1
+        #    if session['step'] > 5:
+       #         return redirect(url_for('final_page'))
+       #     return redirect(url_for('interstitial'))
+      #  else:
+      #      flash("Incorrect answer, please try again.") ###
 
     # Generate quiz data
-    num1, num2 = random.randint(1, 10), random.randint(1, 10)
-    correct = num1 + num2
-    options = [correct, correct + random.randint(1, 3), correct - random.randint(1, 2)]
-    random.shuffle(options)
+   # num1, num2 = random.randint(1, 10), random.randint(1, 10)
+  #  correct = num1 + num2
+   # options = [correct, correct + random.randint(1, 3), correct - random.randint(1, 2)]
+ #   random.shuffle(options)
     
     # Render the new portal-style interstitial
-    return render_template('interstitial_portal.html', 
-                           step=step, n1=num1, n2=num2, 
-                           correct=correct, options=options)
+   # return render_template('interstitial_portal.html', 
+               #            step=step, n1=num1, n2=num2, 
+              #             correct=correct, options=options)
 
-@app.route('/final')
-def final_page():
-    short_id = session.get('target_id')
+#@app.route('/final')
+#def final_page():
+ #   short_id = session.get('target_id')
     # Retrieve the final URL from Redis using the stored ID
-    final_url = db.get(short_id)
-    return render_template('final_page.html', final_url=final_url)
+  #  final_url = db.get(short_id)
+  #  return render_template('final_page.html', final_url=final_url)
 
 @app.route('/blog/<category>/<slug>')
 def blog_post(category, slug):
