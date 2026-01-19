@@ -1,6 +1,6 @@
 import os
 import redis
-from flask import Flask, render_template, request, redirect, session, url_for, flash
+from flask import Flask, render_template, make_response, request, redirect, session, url_for, flash
 import string
 import random
 
