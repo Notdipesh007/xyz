@@ -2,7 +2,7 @@ import os
 import json
 import base64
 import requests
-from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify, Response  # Added Response here
 from functools import wraps
 from bs4 import BeautifulSoup # Added for HTML filtering
 
