@@ -4,6 +4,7 @@ import base64
 import requests
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from functools import wraps
+from bs4 import BeautifulSoup # Added for HTML filtering
 
 app = Flask(__name__)
 
@@ -50,6 +51,17 @@ def update_github_file(path, data, sha, message):
     r = requests.put(url, json=payload, headers=headers)
     return r.status_code
 
+# --- NEW: ROUTE TO SERVE IMAGES THROUGH YOUR DOMAIN ---
+@app.route('/uploads/<filename>')
+def serve_image(filename):
+    """Fetches the image from GitHub and serves it through your domain."""
+    github_raw_url = f"https://raw.githubusercontent.com/{REPO_OWNER}/{REPO_NAME}/{BRANCH}/static/uploads/{filename}"
+    res = requests.get(github_raw_url)
+    if res.status_code == 200:
+        return Response(res.content, mimetype=res.headers.get('Content-Type'))
+    return "Image not found", 404
+
+# --- UPDATED GITHUB IMAGE UPLOAD ---
 def upload_github_image(filename, file_data):
     path = f"static/uploads/{filename}"
     url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{path}"
@@ -61,8 +73,9 @@ def upload_github_image(filename, file_data):
         "branch": BRANCH
     }
     r = requests.put(url, json=payload, headers=headers)
-    if r.status_code == 201:
-        return f"https://raw.githubusercontent.com/{REPO_OWNER}/{REPO_NAME}/{BRANCH}/{path}"
+    if r.status_code in [201, 200]:
+        # Return a relative path served by our new route
+        return f"/uploads/{filename}"
     return None
 
 # --- ROUTES ---
@@ -100,22 +113,43 @@ def admin_dashboard():
     posts, _ = get_github_file(POSTS_FILE_PATH)
     return render_template('admin.html', posts=posts)
 
+# --- UPDATED ADMIN ADD ROUTE WITH FILTERING ---
 @app.route('/admin/add', methods=['POST'])
 @login_required
 def add_post():
     posts, sha = get_github_file(POSTS_FILE_PATH)
     image_url = ""
+    
     if 'image' in request.files:
         file = request.files['image']
         if file.filename != '':
             image_url = upload_github_image(file.filename, file.read())
+
+    raw_content = request.form.get('content', '')
+
+    # 1. Replace "Vidya Rays" with "Vidya Subodh"
+    processed_content = raw_content.replace("Vidya Rays", "Vidya Subodh")
+    processed_content = processed_content.replace("vidyarays", "vidyasubodh")
+
+    # 2. Filter HTML: Extract only <p> and <table> tags
+    soup = BeautifulSoup(processed_content, "html.parser")
+    tags_to_keep = ['p', 'table', 'thead', 'tbody', 'tr', 'th', 'td', 'h2', 'h3', 'ul', 'li']
+    
+    # Extract only the allowed tags and their content
+    clean_html_parts = []
+    for element in soup.find_all(tags_to_keep):
+        # Prevent nesting issues by only taking top-level allowed elements
+        if element.parent.name not in tags_to_keep:
+            clean_html_parts.append(str(element))
+    
+    final_content = "".join(clean_html_parts) if clean_html_parts else processed_content
 
     new_post = {
         "title": request.form.get('title'),
         "slug": request.form.get('slug'),
         "category": request.form.get('category'),
         "image": image_url,
-        "content": request.form.get('content'),
+        "content": final_content,
         "date": "January 2026"
     }
     posts.insert(0, new_post)
