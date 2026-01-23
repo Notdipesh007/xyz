@@ -74,10 +74,16 @@ def index():
 @app.route('/blog/<slug>')
 def blog_post(slug):
     posts, _ = get_github_file(POSTS_FILE_PATH)
+    # Find the current post
     post = next((p for p in posts if p['slug'] == slug), None)
+    
     if not post:
         return "Post not found", 404
-    return render_template('blog_post.html', post=post)
+    
+    # Logic for Similar Posts: Filter by category, exclude current post, limit to 3
+    similar_posts = [p for p in posts if p['category'] == post['category'] and p['slug'] != slug][:3]
+    
+    return render_template('blog_post.html', post=post, similar_posts=similar_posts)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
