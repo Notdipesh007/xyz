@@ -2,8 +2,9 @@ import os
 import json
 import base64
 import requests
-from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify, Response  # Added Response here
+from flask import Flask, render_template, make_response, request, redirect, url_for, session, flash, jsonify, Response  # Added Response here
 from functools import wraps
+from datetime import datetime
 from bs4 import BeautifulSoup # Added for HTML filtering
 
 app = Flask(__name__)
