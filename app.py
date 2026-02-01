@@ -216,6 +216,55 @@ def login():
         flash("Invalid credentials")
     return render_template('login.html')
 
+# --- NEW EDIT ROUTES ---
+
+@app.route('/admin/edit/<slug>', methods=['GET'])
+@login_required
+def edit_post_page(slug):
+    posts, _ = get_github_file(POSTS_FILE_PATH)
+    # Find the specific post to edit
+    post = next((p for p in posts if p['slug'] == slug), None)
+    if not post:
+        flash("Post not found")
+        return redirect(url_for('admin_dashboard'))
+    return render_template('admin_edit.html', post=post)
+
+@app.route('/admin/edit/<slug>', methods=['POST'])
+@login_required
+def update_post(slug):
+    posts, sha = get_github_file(POSTS_FILE_PATH)
+    
+    # Find index of the post to update
+    index = next((i for i, p in enumerate(posts) if p['slug'] == slug), None)
+    
+    if index is None:
+        flash("Error: Post not found")
+        return redirect(url_for('admin_dashboard'))
+
+    # Update basic fields
+    posts[index]['title'] = request.form.get('title')
+    posts[index]['slug'] = request.form.get('slug')
+    posts[index]['category'] = request.form.get('category')
+    posts[index]['content'] = request.form.get('content')
+
+    # Handle optional image update
+    if 'image' in request.files:
+        file = request.files['image']
+        if file.filename != '':
+            new_image_url = upload_github_image(file.filename, file.read())
+            if new_image_url:
+                posts[index]['image'] = new_image_url
+
+    # Save back to GitHub
+    status = update_github_file(POSTS_FILE_PATH, posts, sha, f"Update post: {slug}")
+    
+    if status == 200 or status == 204:
+        flash("Post updated successfully!")
+    else:
+        flash("Failed to update post on GitHub.")
+        
+    return redirect(url_for('admin_dashboard'))
+
 @app.route('/admin')
 @login_required
 def admin_dashboard():
