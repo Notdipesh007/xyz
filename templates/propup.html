@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Your Link</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background-color: #f9f9f9; }
+        .instruction-box { 
+            border: 2px solid #ddd; 
+            padding: 30px; 
+            border-radius: 10px; 
+            display: inline-block; 
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .timer-text { font-size: 20px; font-weight: bold; color: #d32f2f; margin: 15px 0; }
+    </style>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let timeLeft = 5;
+            const timerEl = document.getElementById('redirect-timer');
+            
+            // Start the countdown
+            const countdown = setInterval(function() {
+                timeLeft--;
+                if(timeLeft > 0) {
+                    timerEl.innerText = timeLeft;
+                } else {
+                    clearInterval(countdown);
+                    timerEl.innerText = "0";
+                    // Redirect to Google Search
+                    window.location.href = "https://www.google.com/search?q=vidhya+subodh&";
+                }
+            }, 1000); // 1000 milliseconds = 1 second
+        });
+    </script>
+</head>
+<body>
+    <div class="instruction-box">
+        <h2>Step 0: Redirecting to Search...</h2>
+        
+        <div class="timer-text">
+            Redirecting automatically in <span id="redirect-timer">5</span> seconds...
+        </div>
+
+        <p>1. We are taking you to Google Search.</p>
+        <p>2. Please click on the <strong>first site</strong> that appears (our home page).</p>
+        <p>3. Your next timer will start automatically once you open the homepage!</p>
+        
+        <img src="/static/uploads/instruction_image.jpg" alt="How to search" style="max-width: 100%; height: auto; margin-top: 15px; border: 1px solid #eee;">
+    </div>
+</body>
+</html>
