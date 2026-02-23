@@ -174,6 +174,25 @@ def get_shortener_context():
             return {"is_active": False, "step": 0, "total_steps": 0, "target_url": "", "clear_cookie": True}
     return {"is_active": False, "step": 0, "total_steps": 0, "target_url": "", "clear_cookie": False}
 
+# --- UPDATED URL SHORTENER ROUTES ---
+
+@app.route('/api/geturl')
+def api_geturl():
+    """Generates the encrypted short link with a dynamic step count."""
+    target_url = request.args.get('url')
+    # Default to 2 steps if you don't provide the ?steps= parameter
+    steps = request.args.get('steps', 2, type=int) 
+    
+    if not target_url:
+        return jsonify({"error": "No URL provided"}), 400
+    
+    # Encrypt a dictionary with both the URL and the total steps required
+    payload = {"url": target_url, "steps": steps}
+    encrypted_data = url_serializer.dumps(payload)
+    
+    short_link = url_for('propup', data=encrypted_data, _external=True)
+    return jsonify({"short_url": short_link, "total_steps": steps})
+
 
 # 2. UPDATED PROPUP ROUTE (Returns 404 if accessed directly)
 @app.route('/propup.php')
