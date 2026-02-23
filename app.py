@@ -150,53 +150,42 @@ def sitemap():
     response = make_response(sitemap_xml)
     response.headers["Content-Type"] = "application/xml"
     return response
-# --- ADD THIS HELPER FUNCTION ANYWHERE ABOVE YOUR ROUTES ---
+# 1. UPDATED HELPER FUNCTION (Add this above your routes)
 def get_shortener_context():
-    """Reads the cookie and returns the current step, total steps, and target URL."""
+    """Reads the cookie and ensures it is secure and valid."""
     link_session_cookie = request.cookies.get('link_session')
     if link_session_cookie:
         try:
             cookie_data = json.loads(url_serializer.loads(link_session_cookie))
+            
+            # SECURITY: Check if the browser (User-Agent) has changed to prevent copying cookies
+            if cookie_data.get('ua') != request.user_agent.string:
+                return {"is_active": False, "step": 0, "total_steps": 0, "target_url": "", "clear_cookie": True}
+
             return {
                 "is_active": True,
                 "step": cookie_data.get('step', 0),
-                "total_steps": cookie_data.get('total_steps', 2), # Default to 2 if missing
-                "target_url": cookie_data.get('target_url', '')
+                "total_steps": cookie_data.get('total_steps', 2),
+                "target_url": cookie_data.get('target_url', ''),
+                "clear_cookie": False
             }
         except Exception:
-            pass
-    return {"is_active": False, "step": 0, "total_steps": 0, "target_url": ""}
+            # Cookie is broken, expired, or tampered with
+            return {"is_active": False, "step": 0, "total_steps": 0, "target_url": "", "clear_cookie": True}
+    return {"is_active": False, "step": 0, "total_steps": 0, "target_url": "", "clear_cookie": False}
 
 
-# --- UPDATED URL SHORTENER ROUTES ---
-
-@app.route('/api/geturl')
-def api_geturl():
-    """Generates the encrypted short link with a dynamic step count."""
-    target_url = request.args.get('url')
-    # Default to 2 steps if you don't provide the ?steps= parameter
-    steps = request.args.get('steps', 2, type=int) 
-    
-    if not target_url:
-        return jsonify({"error": "No URL provided"}), 400
-    
-    # Encrypt a dictionary with both the URL and the total steps required
-    payload = {"url": target_url, "steps": steps}
-    encrypted_data = url_serializer.dumps(payload)
-    
-    short_link = url_for('propup', data=encrypted_data, _external=True)
-    return jsonify({"short_url": short_link, "total_steps": steps})
-
+# 2. UPDATED PROPUP ROUTE (Returns 404 if accessed directly)
 @app.route('/propup.php')
 def propup():
-    """Landing page that sets the cookie with total steps."""
     encrypted_data = request.args.get('data')
+    
+    # SECURITY: If no valid link data provided, show Not Found page
     if not encrypted_data:
-        return "Invalid link", 400
+        return "Not Found", 404
     
     try:
         payload = url_serializer.loads(encrypted_data)
-        # Support older links that only had the string, and new links with the dictionary
         if isinstance(payload, str):
             target_url = payload
             total_steps = 2
@@ -204,36 +193,42 @@ def propup():
             target_url = payload.get("url")
             total_steps = payload.get("steps", 2)
     except Exception:
-        return "Invalid or expired link", 400
+        return "Not Found", 404
 
     resp = make_response(render_template('propup.html'))
     
-    # Store the target URL, starting step (1), and the total required steps
+    # SECURITY: Save User-Agent to prevent copying the cookie to another browser
     cookie_state = json.dumps({
         "target_url": target_url, 
         "step": 1, 
-        "total_steps": total_steps
+        "total_steps": total_steps,
+        "ua": request.user_agent.string 
     })
     encoded_cookie = url_serializer.dumps(cookie_state)
     resp.set_cookie('link_session', encoded_cookie, max_age=1800)
     
     return resp
 
+
+# 3. UPDATED NEXT_STEP (Stops abuse and cookie reuse)
 @app.route('/next_step')
 def next_step():
-    """Increments the step and sends the user to a random blog post."""
     link_session_cookie = request.cookies.get('link_session')
+    
     if not link_session_cookie:
         return redirect(url_for('index'))
         
     try:
-        # 1. Read the current cookie
         cookie_data = json.loads(url_serializer.loads(link_session_cookie))
         
-        # 2. Increment the user's current step
+        # SECURITY: If someone tries to reuse a completed cookie, or UA doesn't match
+        if cookie_data.get('ua') != request.user_agent.string or cookie_data['step'] >= cookie_data.get('total_steps', 2):
+            resp = make_response(redirect(url_for('index')))
+            resp.delete_cookie('link_session') # Destroy cookie
+            return resp
+        
         cookie_data['step'] += 1
         
-        # 3. Pick a random blog post
         posts, _ = get_github_file(POSTS_FILE_PATH)
         if posts:
             random_post = random.choice(posts)
@@ -241,21 +236,19 @@ def next_step():
         else:
             next_url = url_for('index')
 
-        # 4. Update the cookie and redirect
         resp = make_response(redirect(next_url))
-        
-        # ---> THE FIX: Added json.dumps() here so the cookie doesn't break! <---
         encoded_cookie = url_serializer.dumps(json.dumps(cookie_data)) 
-        
         resp.set_cookie('link_session', encoded_cookie, max_age=1800)
         return resp
         
-    except Exception as e:
-        print(f"Cookie error in next_step: {e}") # Helps you spot errors in the terminal
-        return redirect(url_for('index'))
+    except Exception:
+        # SECURITY: If cookie is tampered with, delete it and redirect to home
+        resp = make_response(redirect(url_for('index')))
+        resp.delete_cookie('link_session')
+        return resp
 
 
-# --- UPDATED INDEX ROUTE ---
+# 4. UPDATED INDEX ROUTE (Destroys cookie on final step)
 @app.route('/')
 def index():
     page = request.args.get('page', 1, type=int)
@@ -269,17 +262,23 @@ def index():
     paginated_posts = posts[start:end]
     
     shortener = get_shortener_context()
-    # Only show the timer on the index page if they are exactly on Step 1
     show_timer = shortener['is_active'] and shortener['step'] == 1
             
-    return render_template('index.html', 
+    resp = make_response(render_template('index.html', 
                            posts=paginated_posts, 
                            page=page, 
                            total_pages=total_pages,
                            show_timer=show_timer,
-                           shortener=shortener)
+                           shortener=shortener))
+    
+    # SECURITY: Delete the cookie instantly if they reached the final step
+    if shortener.get('clear_cookie') or (shortener['is_active'] and shortener['step'] >= shortener['total_steps']):
+        resp.delete_cookie('link_session')
+        
+    return resp
 
-# --- UPDATED BLOG POST ROUTE ---
+
+# 5. UPDATED BLOG POST ROUTE (Destroys cookie on final step)
 @app.route('/blog/<slug>')
 def blog_post(slug):
     posts, _ = get_github_file(POSTS_FILE_PATH)
@@ -292,7 +291,6 @@ def blog_post(slug):
     similar_posts = [p for p in posts if p.get('category', '').strip().lower() == current_category and p['slug'] != slug]
     
     shortener = get_shortener_context()
-    # Show the timer on blog posts for Step 2 and beyond
     show_timer = shortener['is_active'] and shortener['step'] > 1
 
     resp = make_response(render_template('blog_post.html', 
@@ -300,6 +298,11 @@ def blog_post(slug):
                                          similar_posts=similar_posts,
                                          show_timer=show_timer,
                                          shortener=shortener))
+    
+    # SECURITY: Delete the cookie instantly if they reached the final step
+    if shortener.get('clear_cookie') or (shortener['is_active'] and shortener['step'] >= shortener['total_steps']):
+        resp.delete_cookie('link_session')
+        
     return resp
 # --- NEW SEARCH ROUTE ---
 @app.route('/search')
