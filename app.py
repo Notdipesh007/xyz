@@ -180,7 +180,7 @@ def api_shorten():
     api_key = request.args.get('api')      # Captures the API key from the URL
     target_url = request.args.get('url')   # The destination URL
     alias = request.args.get('alias')      # Captured but ignored (uses encryption instead)
-    steps = request.args.get('steps', 4, type=int) # Keeps your existing dynamic step logic
+    steps = request.args.get('steps', 2, type=int) # Keeps your existing dynamic step logic
     
     if not target_url:
         return jsonify({
