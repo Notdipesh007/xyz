@@ -1,6 +1,8 @@
 import os
 import json
 import base64
+import hashlib
+from cryptography.fernet import Fernet, InvalidToken
 import requests
 import random # Add this for selecting a random blog post
 from flask import Flask, render_template, make_response, request, redirect, url_for, session, flash, jsonify, Response
@@ -20,8 +22,12 @@ ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD")
 BRANCH = os.environ.get("GITHUB_BRANCH", "main")
 POSTS_FILE_PATH = "posts.json"
 
-# Initialize the serializer
+# Keep url_serializer for your cookies, but add Fernet for the URLs
 url_serializer = URLSafeSerializer(app.secret_key)
+
+# Generate a secure 32-byte Fernet key derived from your Flask secret key
+fernet_key = base64.urlsafe_b64encode(hashlib.sha256(app.secret_key.encode()).digest())
+fernet = Fernet(fernet_key)
 
 def login_required(f):
     @wraps(f)
@@ -176,37 +182,29 @@ def get_shortener_context():
 
 @app.route('/api', methods=['GET'])
 def api_shorten():
-    """Generates the encrypted short link matching the external API format."""
-    api_key = request.args.get('api')      # Captures the API key from the URL
-    target_url = request.args.get('url')   # The destination URL
-    alias = request.args.get('alias')      # Captured but ignored (uses encryption instead)
-    steps = request.args.get('steps', 2, type=int) # Keeps your existing dynamic step logic
+    api_key = request.args.get('api')
+    target_url = request.args.get('url')
+    alias = request.args.get('alias')
+    steps = request.args.get('steps', 2, type=int)
     
     if not target_url:
-        return jsonify({
-            "status": "error", 
-            "message": "No URL provided"
-        }), 400
+        return jsonify({"status": "error", "message": "No URL provided"}), 400
     
-    # OPTIONAL: Add a check here if you want to restrict who can create links
-    # if api_key != "d9918049795aad4d2d193e317ac522f1d276c701":
-    #     return jsonify({"status": "error", "message": "Invalid API key"}), 403
-    
-    # Encrypt the URL and steps into a secure payload
+    # 1. Create the payload dictionary
     payload = {"url": target_url, "steps": steps}
-    encrypted_data = url_serializer.dumps(payload)
+    
+    # 2. Convert to JSON bytes, then Encrypt (Fernet automatically adds a timestamp)
+    payload_bytes = json.dumps(payload).encode('utf-8')
+    encrypted_data = fernet.encrypt(payload_bytes).decode('utf-8')
     
     # Generate the full link pointing to propup.php
     short_link = url_for('propup', data=encrypted_data, _external=True)
     
-    # Return the exact JSON structure requested
     return jsonify({
         "status": "success",
         "shortenedUrl": short_link
     })
 
-
-# 2. UPDATED PROPUP ROUTE (Returns 404 if accessed directly)
 @app.route('/propup.php')
 def propup():
     encrypted_data = request.args.get('data')
@@ -216,13 +214,18 @@ def propup():
         return "Not Found", 404
     
     try:
-        payload = url_serializer.loads(encrypted_data)
-        if isinstance(payload, str):
-            target_url = payload
-            total_steps = 2
-        else:
-            target_url = payload.get("url")
-            total_steps = payload.get("steps", 2)
+        # Decrypt the token. ttl=1800 enforces the 30-minute limit.
+        # If the token is modified OR older than 30 mins, InvalidToken is raised.
+        decrypted_bytes = fernet.decrypt(encrypted_data.encode('utf-8'), ttl=1800)
+        
+        # Load the JSON back into a dictionary
+        payload = json.loads(decrypted_bytes.decode('utf-8'))
+        target_url = payload.get("url")
+        total_steps = payload.get("steps", 2)
+        
+    except InvalidToken:
+        # User sees this if the link is older than 30 mins or tampered with
+        return "This link has expired (older than 30 minutes) or is invalid.", 403
     except Exception:
         return "Not Found", 404
 
