@@ -453,13 +453,16 @@ def add_post():
     
     final_content = "".join(clean_html_parts) if clean_html_parts else processed_content
 
+    # Get the current date in the format "Month Day, Year" (e.g., February 24, 2026)
+    current_date = datetime.now().strftime("%B %d, %Y")
+
     new_post = {
         "title": request.form.get('title'),
         "slug": request.form.get('slug'),
         "category": request.form.get('category'),
         "image": image_url,
         "content": final_content,
-        "date": "January 2026"
+        "date": current_date
     }
     posts.insert(0, new_post)
     update_github_file(POSTS_FILE_PATH, posts, sha, "Add new post via admin")
